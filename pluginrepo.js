@@ -25,6 +25,18 @@
         panel.appendChild(btn);
     }
 
+    function refreshPluginManager() {
+        const panel = document.getElementById("avia-plugins-panel");
+        if (!panel) return;
+
+        panel.remove();
+
+        setTimeout(() => {
+            const btn = document.getElementById("stoat-fake-plugins");
+            if (btn) btn.click();
+        }, 50);
+    }
+
     function openWindow() {
 
         if (document.getElementById("avia-official-repo-window")) return;
@@ -117,15 +129,20 @@
 
                     installBtn.onclick = () => {
                         const plugins = getPlugins();
+
                         plugins.push({
                             name: repoPlugin.name,
                             url: repoPlugin.link,
                             author: repoPlugin.author || "Official",
                             enabled: false
                         });
+
                         setPlugins(plugins);
+
                         installBtn.textContent = "Installed";
                         installBtn.disabled = true;
+
+                        refreshPluginManager();
                     };
 
                     row.appendChild(left);
