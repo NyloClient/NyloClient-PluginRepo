@@ -52,14 +52,63 @@
         });
     }
 
-    function hookLocalStorage() {
-        const originalSetItem = localStorage.setItem;
-        localStorage.setItem = function (key, value) {
-            originalSetItem.apply(this, arguments);
-            if (key === STORAGE_KEY) {
-                updateInstallStates();
-            }
-        };
+    function renderRepo(data) {
+        repoContent.innerHTML = "";
+
+        data.plugins.forEach(repoPlugin => {
+
+            const row = document.createElement("div");
+            row.style.display = "flex";
+            row.style.justifyContent = "space-between";
+            row.style.alignItems = "center";
+            row.style.marginBottom = "12px";
+            row.setAttribute("data-link", repoPlugin.link);
+
+            const left = document.createElement("div");
+            left.style.display = "flex";
+            left.style.flexDirection = "column";
+
+            const title = document.createElement("div");
+            title.textContent = `${repoPlugin.name} — by ${repoPlugin.author || "Unknown"}`;
+            title.style.fontWeight = "500";
+
+            const desc = document.createElement("div");
+            desc.textContent = repoPlugin.description;
+            desc.style.fontSize = "12px";
+            desc.style.opacity = "0.7";
+
+            left.appendChild(title);
+            left.appendChild(desc);
+
+            const installBtn = document.createElement("button");
+
+            installBtn.onclick = () => {
+                const plugins = getPlugins();
+                if (!plugins.some(p => p.url === repoPlugin.link)) {
+                    plugins.push({
+                        name: repoPlugin.name,
+                        url: repoPlugin.link,
+                        enabled: false
+                    });
+                    setPlugins(plugins);
+                    window.dispatchEvent(new Event("avia-plugin-list-changed"));
+                    triggerManagerRefresh();
+                }
+            };
+
+            row.appendChild(left);
+            row.appendChild(installBtn);
+            repoContent.appendChild(row);
+        });
+
+        updateInstallStates();
+    }
+
+    function refetchRepo() {
+        if (!repoContent) return;
+        fetch(OFFICIAL_REPO_URL)
+            .then(res => res.json())
+            .then(data => renderRepo(data));
     }
 
     function openWindow() {
@@ -115,63 +164,7 @@
 
         enableDrag(panel, header);
 
-        fetch(OFFICIAL_REPO_URL)
-            .then(res => res.json())
-            .then(data => {
-
-                repoContent.innerHTML = "";
-
-                data.plugins.forEach(repoPlugin => {
-
-                    const row = document.createElement("div");
-                    row.style.display = "flex";
-                    row.style.justifyContent = "space-between";
-                    row.style.alignItems = "center";
-                    row.style.marginBottom = "12px";
-                    row.setAttribute("data-link", repoPlugin.link);
-
-                    const left = document.createElement("div");
-                    left.style.display = "flex";
-                    left.style.flexDirection = "column";
-
-                    const title = document.createElement("div");
-                    title.textContent = `${repoPlugin.name} — by ${repoPlugin.author || "Unknown"}`;
-                    title.style.fontWeight = "500";
-
-                    const desc = document.createElement("div");
-                    desc.textContent = repoPlugin.description;
-                    desc.style.fontSize = "12px";
-                    desc.style.opacity = "0.7";
-
-                    left.appendChild(title);
-                    left.appendChild(desc);
-
-                    const installBtn = document.createElement("button");
-
-                    installBtn.onclick = () => {
-                        const plugins = getPlugins();
-                        if (!plugins.some(p => p.url === repoPlugin.link)) {
-                            plugins.push({
-                                name: repoPlugin.name,
-                                url: repoPlugin.link,
-                                enabled: false
-                            });
-                            setPlugins(plugins);
-                            triggerManagerRefresh();
-                        }
-                    };
-
-                    row.appendChild(left);
-                    row.appendChild(installBtn);
-                    repoContent.appendChild(row);
-                });
-
-                updateInstallStates();
-
-            })
-            .catch(() => {
-                repoContent.textContent = "Failed to load official repo.";
-            });
+        refetchRepo();
     }
 
     function enableDrag(panel, header) {
@@ -191,7 +184,11 @@
         });
     }
 
-    hookLocalStorage();
+    window.addEventListener("avia-plugin-list-changed", () => {
+        if (document.getElementById("avia-official-repo-window")) {
+            refetchRepo();
+        }
+    });
 
     const observer = new MutationObserver(() => injectButton());
     observer.observe(document.body, { childList: true, subtree: true });
