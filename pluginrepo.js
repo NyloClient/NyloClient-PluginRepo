@@ -4,7 +4,7 @@
     window.__AVIA_OFFICIAL_REPO_LOADED__ = true;
 
     const STORAGE_KEY = "avia_plugins";
-    const OFFICIAL_REPO_URL = "https://raw.githubusercontent.com/AvaLilac/PluginRepo/main/pluginrepobackend.js";
+    const BACKEND_FILE = "pluginrepobackend.js";
 
     const getPlugins = () => JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     const setPlugins = (data) => localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -116,42 +116,21 @@
 
         repoContent.innerHTML = "Loading...";
 
-        const url = OFFICIAL_REPO_URL + "?t=" + Date.now();
-
-        function electronFetch() {
-            try {
-                const https = require("https");
-                https.get(url, res => {
-                    let data = "";
-                    res.on("data", chunk => data += chunk);
-                    res.on("end", () => {
-                        try {
-                            renderRepo(JSON.parse(data));
-                        } catch {
-                            repoContent.innerHTML = "Invalid repo JSON.";
-                        }
-                    });
-                }).on("error", () => {
-                    repoContent.innerHTML = "Failed to fetch repo.";
-                });
-            } catch {
-                repoContent.innerHTML = "Failed to fetch repo.";
-            }
-        }
-
         try {
-            fetch(url, { cache: "no-store" })
-                .then(res => res.text())
-                .then(text => {
-                    try {
-                        renderRepo(JSON.parse(text));
-                    } catch {
-                        repoContent.innerHTML = "Invalid repo JSON.";
-                    }
-                })
-                .catch(() => electronFetch());
+            if (typeof require !== "undefined") {
+                const path = require("path");
+                const fs = require("fs");
+                const filePath = path.join(__dirname, BACKEND_FILE);
+                const data = fs.readFileSync(filePath, "utf8");
+                renderRepo(JSON.parse(data));
+            } else {
+                fetch("./" + BACKEND_FILE + "?t=" + Date.now(), { cache: "no-store" })
+                    .then(res => res.text())
+                    .then(text => renderRepo(JSON.parse(text)))
+                    .catch(() => repoContent.innerHTML = "Failed to load repo.");
+            }
         } catch {
-            electronFetch();
+            repoContent.innerHTML = "Failed to load repo.";
         }
     }
 
@@ -175,15 +154,11 @@
         panel.style.flexDirection = "column";
         panel.style.overflow = "hidden";
         panel.style.border = "1px solid rgba(255,255,255,0.08)";
-        panel.style.backdropFilter = "blur(12px)";
 
         const header = document.createElement("div");
         header.textContent = "Official Repo";
         header.style.padding = "14px 16px";
         header.style.fontWeight = "600";
-        header.style.fontSize = "14px";
-        header.style.background = "var(--md-sys-color-surface-container, rgba(255,255,255,0.04))";
-        header.style.borderBottom = "1px solid rgba(255,255,255,0.08)";
         header.style.cursor = "move";
 
         const closeBtn = document.createElement("div");
@@ -192,7 +167,6 @@
         closeBtn.style.top = "12px";
         closeBtn.style.right = "16px";
         closeBtn.style.cursor = "pointer";
-        closeBtn.style.opacity = "0.7";
         closeBtn.onclick = () => panel.remove();
 
         repoContent = document.createElement("div");
@@ -210,7 +184,6 @@
         footer.style.display = "flex";
         footer.style.alignItems = "center";
         footer.style.paddingLeft = "16px";
-        footer.style.background = "linear-gradient(to top, rgba(0,0,0,0.6), transparent)";
 
         const refetchBtn = document.createElement("button");
         refetchBtn.textContent = "Refetch";
