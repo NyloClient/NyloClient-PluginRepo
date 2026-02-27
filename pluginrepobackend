@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    {
+      "name": "Write Uppercase",
+      "author": "AvaLilac",
+      "link": "https://cdn.jsdelivr.net/gh/AvaLilac/Ava-s-AviaClient-Plugins@refs/heads/main/WriteUpperCase.js",
+      "description": "Auto-capitalizes sentences while you type."
+    },
+    {
+      "name": "MonacoCSS",
+      "author": "AvaLilac",
+      "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/QuickCSSPlus.js",
+      "description": "Enhanced QuickCSS editor with themes."
+    }
+  ]
+}
