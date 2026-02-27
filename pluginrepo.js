@@ -52,6 +52,16 @@
         });
     }
 
+    function hookLocalStorage() {
+        const originalSetItem = localStorage.setItem;
+        localStorage.setItem = function (key, value) {
+            originalSetItem.apply(this, arguments);
+            if (key === STORAGE_KEY) {
+                updateInstallStates();
+            }
+        };
+    }
+
     function openWindow() {
 
         if (document.getElementById("avia-official-repo-window")) return;
@@ -148,7 +158,6 @@
                             });
                             setPlugins(plugins);
                             triggerManagerRefresh();
-                            updateInstallStates();
                         }
                     };
 
@@ -182,7 +191,7 @@
         });
     }
 
-    window.addEventListener("storage", updateInstallStates);
+    hookLocalStorage();
 
     const observer = new MutationObserver(() => injectButton());
     observer.observe(document.body, { childList: true, subtree: true });
