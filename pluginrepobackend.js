@@ -39,8 +39,8 @@
     {
       "name": "ForceEmojiPack",
       "author": "0simp",
-      "link": "Forces emojis in embeds and message reactions to use your selected emoji pack",
-      "description": "https://raw.githubusercontent.com/0simp/ForceEmojiPack/refs/heads/main/ForceEmojiPack.js"
+      "link": "https://raw.githubusercontent.com/0simp/ForceEmojiPack/refs/heads/main/ForceEmojiPack.js",
+      "description": "Forces emojis in embeds and message reactions to use your selected emoji pack"
     },
     {
       "name": "AppleEmojiPack",
