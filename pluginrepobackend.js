@@ -77,6 +77,18 @@
       "author": "0simp",
       "link": "https://raw.githubusercontent.com/0simp/AviaPlugins/refs/heads/main/AddToFavourites.js",
       "description": "Adds a button to the image viewer to add the image to favourites. Currently no support for adding a custom title because I'm too stupid to figure out how to do it but I might add it in the future. Also for some reason the image only shows up in favourites after you refresh, no fucking clue why that is."
+    },
+    {
+      "name": "Avia Server Button",
+      "author": "AvaLilac",
+      "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/aviaserverbutton.js",
+      "description": "Changes the Go to stoat server to avia's"
+    },
+    {
+      "name": "Masquerade",
+      "author": "AvaLilac",
+      "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/masquerade.js",
+      "description": "Exactly what the name says. Allows you to change your pfp/avatar before sending a message without modifying your profile. Also modified by   to add the ability to impersonate anyone by clicking onto their profile, clicking the 3 dots. Then clicking impersonate."
     }
   ]
 }
