@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trusted Plugins/Themes Repo</title>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&family=Google+Sans+Display:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --md-primary: #6750A4;
+    --md-on-primary: #FFFFFF;
+    --md-primary-container: #EADDFF;
+    --md-on-primary-container: #21005D;
+    --md-secondary: #625B71;
+    --md-secondary-container: #E8DEF8;
+    --md-surface: #FFFBFE;
+    --md-surface-variant: #E7E0EC;
+    --md-surface-container: #F3EDF7;
+    --md-surface-container-high: #ECE6F0;
+    --md-surface-container-highest: #E6E0E9;
+    --md-on-surface: #1C1B1F;
+    --md-on-surface-variant: #49454F;
+    --md-outline: #79747E;
+    --md-outline-variant: #CAC4D0;
+    --md-error: #B3261E;
+    --md-shadow: rgba(0,0,0,0.08);
+    --md-state-hover: rgba(103,80,164,0.08);
+    --md-state-pressed: rgba(103,80,164,0.12);
+    --stoat-active: #2E7D32;
+    --stoat-active-container: #C8E6C9;
+    --stoat-on-active-container: #1B5E20;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 100px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --md-primary: #D0BCFF;
+      --md-on-primary: #381E72;
+      --md-primary-container: #4F378B;
+      --md-on-primary-container: #EADDFF;
+      --md-secondary: #CCC2DC;
+      --md-secondary-container: #4A4458;
+      --md-surface: #141218;
+      --md-surface-variant: #49454F;
+      --md-surface-container: #1D1B20;
+      --md-surface-container-high: #2B2930;
+      --md-surface-container-highest: #36343B;
+      --md-on-surface: #E6E1E5;
+      --md-on-surface-variant: #CAC4D0;
+      --md-outline: #938F99;
+      --md-outline-variant: #49454F;
+      --md-shadow: rgba(0,0,0,0.3);
+      --md-state-hover: rgba(208,188,255,0.08);
+      --md-state-pressed: rgba(208,188,255,0.12);
+      --stoat-active: #81C784;
+      --stoat-active-container: #1B5E20;
+      --stoat-on-active-container: #C8E6C9;
+    }
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'Google Sans', system-ui, sans-serif;
+    background: var(--md-surface);
+    color: var(--md-on-surface);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .app-bar {
+    background: var(--md-surface-container);
+    border-bottom: 1px solid var(--md-outline-variant);
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .app-bar-icon { font-size: 24px; color: var(--md-primary); }
+  .app-bar-title {
+    font-family: 'Google Sans Display', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--md-on-surface);
+    flex: 1;
+  }
+  .app-bar-subtitle {
+    font-size: 12px;
+    color: var(--md-on-surface-variant);
+    background: var(--md-surface-variant);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: calc(100vh - 64px);
+  }
+
+  .sidebar {
+    background: var(--md-surface-container);
+    border-right: 1px solid var(--md-outline-variant);
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sidebar-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--md-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 8px 16px 4px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    color: var(--md-on-surface-variant);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+    user-select: none;
+  }
+  .nav-item:hover { background: var(--md-state-hover); }
+  .nav-item.active {
+    background: var(--md-secondary-container);
+    color: var(--md-on-primary-container);
+  }
+  .nav-item .material-symbols-outlined { font-size: 20px; }
+
+  .badge {
+    margin-left: auto;
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    min-width: 24px;
+    text-align: center;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .toolbar {
+    padding: 20px 24px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--md-outline-variant);
+    background: var(--md-surface);
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+
+  .toolbar-row1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .toolbar-row2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .search-field {
+    flex: 1;
+    max-width: 480px;
+    position: relative;
+  }
+  .search-field .material-symbols-outlined {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--md-on-surface-variant);
+    pointer-events: none;
+  }
+  .search-field input {
+    width: 100%;
+    height: 48px;
+    border: 1px solid var(--md-outline);
+    border-radius: var(--radius-full);
+    background: var(--md-surface-container-high);
+    color: var(--md-on-surface);
+    font-family: 'Google Sans', sans-serif;
+    font-size: 14px;
+    padding: 0 20px 0 48px;
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .search-field input:focus {
+    border-color: var(--md-primary);
+    background: var(--md-surface);
+  }
+  .search-field input::placeholder { color: var(--md-on-surface-variant); }
+
+  .toolbar-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+  .icon-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--md-on-surface-variant);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .icon-btn:hover { background: var(--md-state-hover); }
+  .icon-btn .material-symbols-outlined { font-size: 22px; }
+
+  .count-chip {
+    font-size: 12px;
+    color: var(--md-on-surface-variant);
+    padding: 6px 14px;
+    background: var(--md-surface-variant);
+    border-radius: var(--radius-full);
+  }
+
+  /* ── Stoat Toggle ── */
+  .stoat-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--md-outline-variant);
+    background: transparent;
+    color: var(--md-on-surface-variant);
+    font-family: 'Google Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, color 0.18s, box-shadow 0.18s;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .stoat-toggle .material-symbols-outlined { font-size: 17px; }
+  .stoat-toggle:hover {
+    background: var(--md-state-hover);
+    border-color: var(--md-outline);
+  }
+  .stoat-toggle.active {
+    background: var(--stoat-active-container);
+    border-color: var(--stoat-active);
+    color: var(--stoat-on-active-container);
+    box-shadow: 0 0 0 1px var(--stoat-active);
+  }
+  .stoat-toggle .stoat-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--md-outline);
+    transition: background 0.18s;
+    flex-shrink: 0;
+  }
+  .stoat-toggle.active .stoat-dot {
+    background: var(--stoat-active);
+  }
+
+  .stoat-toggle-label-off { display: inline; }
+  .stoat-toggle-label-on  { display: none; }
+  .stoat-toggle.active .stoat-toggle-label-off { display: none; }
+  .stoat-toggle.active .stoat-toggle-label-on  { display: inline; }
+
+  /* ── Content ── */
+  .content {
+    padding: 20px 24px;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .plugin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 12px;
+  }
+
+  .plugin-card {
+    background: var(--md-surface-container);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--radius-xl);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+  }
+  .plugin-card:hover {
+    background: var(--md-surface-container-high);
+    border-color: var(--md-outline);
+  }
+
+  .plugin-header { display: flex; align-items: flex-start; gap: 14px; }
+
+  .plugin-icon {
+    width: 48px; height: 48px;
+    border-radius: var(--radius-lg);
+    background: var(--md-primary-container);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .plugin-icon .material-symbols-outlined { font-size: 24px; color: var(--md-on-primary-container); }
+
+  .plugin-meta { flex: 1; min-width: 0; }
+  .plugin-name {
+    font-size: 16px; font-weight: 500;
+    color: var(--md-on-surface);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .plugin-author { font-size: 12px; color: var(--md-on-surface-variant); margin-top: 2px; }
+  .plugin-desc { font-size: 13px; color: var(--md-on-surface-variant); line-height: 1.6; flex: 1; }
+
+  .plugin-actions { display: flex; gap: 8px; align-items: center; margin-top: 4px; }
+
+  .btn-filled {
+    height: 36px; padding: 0 20px;
+    border-radius: var(--radius-full); border: none;
+    background: var(--md-primary); color: var(--md-on-primary);
+    font-family: 'Google Sans', sans-serif; font-size: 13px; font-weight: 500;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    transition: opacity 0.15s, box-shadow 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-filled:hover { box-shadow: 0 1px 6px var(--md-shadow); opacity: 0.92; }
+  .btn-filled:disabled {
+    background: var(--md-outline-variant); color: var(--md-on-surface-variant);
+    cursor: default; opacity: 1; box-shadow: none;
+  }
+  .btn-filled .material-symbols-outlined { font-size: 16px; }
+
+  .btn-tonal {
+    height: 36px; padding: 0 16px;
+    border-radius: var(--radius-full); border: none;
+    background: var(--md-secondary-container); color: var(--md-on-primary-container);
+    font-family: 'Google Sans', sans-serif; font-size: 13px; font-weight: 500;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    transition: opacity 0.15s;
+  }
+  .btn-tonal:hover { opacity: 0.85; }
+  .btn-tonal .material-symbols-outlined { font-size: 16px; }
+
+  /* Stoat inject button */
+  .btn-stoat {
+    height: 36px; padding: 0 16px;
+    border-radius: var(--radius-full); border: none;
+    background: var(--stoat-active-container); color: var(--stoat-on-active-container);
+    font-family: 'Google Sans', sans-serif; font-size: 13px; font-weight: 500;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    transition: opacity 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-stoat:hover { opacity: 0.85; }
+  .btn-stoat .material-symbols-outlined { font-size: 16px; }
+
+  /* Toast */
+  .copy-toast {
+    position: fixed;
+    bottom: 32px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--md-on-surface); color: var(--md-surface);
+    padding: 12px 24px;
+    border-radius: var(--radius-lg);
+    font-size: 14px; font-weight: 500;
+    z-index: 9999;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s;
+    opacity: 0; pointer-events: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .copy-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  .copy-toast .material-symbols-outlined { font-size: 18px; color: #A8C7FA; }
+  .copy-toast .material-symbols-outlined.stoat-icon { color: #81C784; }
+
+  .loading-state, .error-state, .empty-state {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 80px 24px;
+    color: var(--md-on-surface-variant);
+    gap: 16px; text-align: center;
+  }
+  .loading-state .material-symbols-outlined,
+  .error-state .material-symbols-outlined,
+  .empty-state .material-symbols-outlined { font-size: 48px; opacity: 0.5; }
+  .loading-state p, .error-state p, .empty-state p { font-size: 15px; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spin { animation: spin 1s linear infinite; display: inline-block; }
+
+  .divider { height: 1px; background: var(--md-outline-variant); margin: 8px 0; }
+
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .theme-card {
+    background: var(--md-surface-container);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .theme-card:hover {
+    background: var(--md-surface-container-high);
+    border-color: var(--md-outline);
+  }
+
+  .theme-preview {
+    width: 100%; aspect-ratio: 16/9;
+    object-fit: contain;
+    background: var(--md-surface-container-highest);
+    display: block;
+  }
+  .theme-preview-placeholder {
+    width: 100%; aspect-ratio: 16/9;
+    background: var(--md-surface-container-highest);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--md-on-surface-variant);
+  }
+  .theme-preview-placeholder .material-symbols-outlined { font-size: 40px; opacity: 0.4; }
+
+  .theme-info { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .theme-info-top { display: flex; align-items: center; gap: 10px; }
+  .theme-meta { flex: 1; min-width: 0; }
+  .theme-name { font-size: 14px; font-weight: 500; color: var(--md-on-surface); word-break: break-word; }
+  .theme-author { font-size: 12px; color: var(--md-on-surface-variant); margin-top: 2px; }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .app-bar { padding: 0 16px; height: 56px; }
+    .app-bar-title { font-size: 18px; }
+    .app-bar-subtitle { display: none; }
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .toolbar { padding: 12px 16px; gap: 8px; }
+    .toolbar-row1 { flex-wrap: wrap; }
+    .search-field { max-width: 100%; order: 1; width: 100%; }
+    .toolbar-actions { order: 2; width: 100%; justify-content: space-between; }
+    .toolbar-row2 { overflow-x: auto; padding-bottom: 4px; }
+    .content { padding: 12px 16px; }
+    .plugin-grid { grid-template-columns: 1fr; gap: 10px; }
+    .plugin-card { padding: 16px; }
+
+    .mobile-nav {
+      display: flex;
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--md-surface-container);
+      border-top: 1px solid var(--md-outline-variant);
+      height: 64px; z-index: 20;
+    }
+    .mobile-nav-item {
+      flex: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 3px; cursor: pointer;
+      color: var(--md-on-surface-variant);
+      font-size: 11px; font-weight: 500;
+      padding: 8px 0;
+      transition: color 0.15s; position: relative;
+    }
+    .mobile-nav-item.active { color: var(--md-primary); }
+    .mobile-nav-item.active .mobile-nav-pill { background: var(--md-primary-container); }
+    .mobile-nav-pill {
+      width: 64px; height: 32px; border-radius: var(--radius-full);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .mobile-nav-item .material-symbols-outlined { font-size: 22px; }
+    .mobile-nav-badge {
+      position: absolute; top: 6px; left: 50%; margin-left: 8px;
+      background: var(--md-primary); color: var(--md-on-primary);
+      font-size: 10px; font-weight: 600;
+      padding: 1px 6px; border-radius: var(--radius-full);
+      min-width: 18px; text-align: center;
+    }
+    .main { padding-bottom: 64px; }
+    .copy-toast { bottom: 80px; }
+  }
+
+  @media (min-width: 601px) { .mobile-nav { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="app-bar">
+  <span class="material-symbols-outlined app-bar-icon">extension</span>
+  <span class="app-bar-title">Trusted Plugins/Themes Repo</span>
+  <span class="app-bar-subtitle" id="version-chip">Avia Official</span>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-label">Browse</div>
+    <div class="nav-item active" id="nav-all" onclick="setFilter('all')">
+      <span class="material-symbols-outlined">grid_view</span>
+      All plugins
+      <span class="badge" id="count-all">0</span>
+    </div>
+    <div class="nav-item" id="nav-new" onclick="setFilter('new')">
+      <span class="material-symbols-outlined">new_releases</span>
+      Recently added
+    </div>
+    <div class="divider"></div>
+    <div class="sidebar-label">Themes</div>
+    <div class="nav-item" id="nav-themes" onclick="setSection('themes')">
+      <span class="material-symbols-outlined">palette</span>
+      All themes
+      <span class="badge" id="count-themes">0</span>
+    </div>
+    <div class="nav-item" id="nav-themes-new" onclick="setRecentThemes()">
+      <span class="material-symbols-outlined">new_releases</span>
+      Recently added
+    </div>
+    <div class="divider"></div>
+    <div class="sidebar-label">Info</div>
+    <div class="nav-item" onclick="window.open('https://avalilac.github.io/PluginRepo/pluginrepobackend.js', '_blank')">
+      <span class="material-symbols-outlined">code</span>
+      View raw source
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="toolbar">
+      <div class="toolbar-row1">
+        <div class="search-field">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" id="search-input" placeholder="Search plugins, authors, descriptions…" />
+        </div>
+        <div class="toolbar-actions">
+          <span class="count-chip" id="result-count">Loading…</span>
+          <button class="icon-btn" onclick="refetchRepo()" title="Refresh">
+            <span class="material-symbols-outlined" id="refresh-icon">refresh</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Stoat toggle row — only shows when plugins section is active -->
+      <div class="toolbar-row2" id="stoat-row">
+        <button class="stoat-toggle" id="stoat-toggle-btn" onclick="toggleStoat()">
+          <span class="stoat-dot"></span>
+          <span class="material-symbols-outlined">rocket_launch</span>
+          <span class="stoat-toggle-label-off">Open in Stoat</span>
+          <span class="stoat-toggle-label-on">Stoat: ON</span>
+        </button>
+        <span style="font-size:12px;color:var(--md-on-surface-variant);" id="stoat-hint">
+          Enable to inject plugins directly into Stoat Desktop
+        </span>
+      </div>
+    </div>
+
+    <div class="content" id="content">
+      <div class="loading-state">
+        <span class="material-symbols-outlined spin">progress_activity</span>
+        <p>Fetching plugins…</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<nav class="mobile-nav">
+  <div class="mobile-nav-item active" id="mnav-all" onclick="setFilter('all')">
+    <div class="mobile-nav-pill"><span class="material-symbols-outlined">grid_view</span></div>
+    <span>All</span>
+    <span class="mobile-nav-badge" id="mob-count-all">0</span>
+  </div>
+  <div class="mobile-nav-item" id="mnav-new" onclick="setFilter('new')">
+    <div class="mobile-nav-pill"><span class="material-symbols-outlined">new_releases</span></div>
+    <span>Recent</span>
+  </div>
+  <div class="mobile-nav-item" id="mnav-themes" onclick="setSection('themes')">
+    <div class="mobile-nav-pill"><span class="material-symbols-outlined">palette</span></div>
+    <span>Themes</span>
+  </div>
+  <div class="mobile-nav-item" onclick="window.open('https://avalilac.github.io/PluginRepo/pluginrepobackend.js', '_blank')">
+    <div class="mobile-nav-pill"><span class="material-symbols-outlined">code</span></div>
+    <span>Source</span>
+  </div>
+</nav>
+
+<div class="copy-toast" id="toast">
+  <span class="material-symbols-outlined" id="toast-icon">check_circle</span>
+  <span id="toast-text">Link copied!</span>
+</div>
+
+<script>
+const OFFICIAL_REPO_URL = "https://avalilac.github.io/PluginRepo/pluginrepobackend.js";
+const THEMES_REGISTRY_URL = "https://raw.githubusercontent.com/AvaLilac/PluginRepo/refs/heads/main/themebackend/themerepobackend.js";
+const BRIDGE_KEY = "avia_repo_inject_request";
+const BRIDGE_ACK_KEY = "avia_repo_inject_ack";
+
+let allPlugins = [];
+let allThemes = [];
+let allThemesBySource = [];
+let activeFilter = 'all';
+let activeSection = 'plugins';
+let stoatEnabled = false;
+let toastTimer = null;
+
+const content = document.getElementById('content');
+const searchInput = document.getElementById('search-input');
+const resultCount = document.getElementById('result-count');
+const countAll = document.getElementById('count-all');
+const stoatToggleBtn = document.getElementById('stoat-toggle-btn');
+const stoatRow = document.getElementById('stoat-row');
+const stoatHint = document.getElementById('stoat-hint');
+
+// ── Toast ──────────────────────────────────────────────────────────────
+function showToast(msg, icon = 'check_circle', iconClass = '') {
+  const toast = document.getElementById('toast');
+  const toastIcon = document.getElementById('toast-icon');
+  document.getElementById('toast-text').textContent = msg;
+  toastIcon.textContent = icon;
+  toastIcon.className = 'material-symbols-outlined' + (iconClass ? ' ' + iconClass : '');
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+}
+
+function copyLink(url) {
+  navigator.clipboard.writeText(url).then(() => showToast('Link copied to clipboard', 'content_copy'));
+}
+
+// ── Stoat Toggle ───────────────────────────────────────────────────────
+function toggleStoat() {
+  stoatEnabled = !stoatEnabled;
+  stoatToggleBtn.classList.toggle('active', stoatEnabled);
+  stoatHint.textContent = stoatEnabled
+    ? 'Click any plugin to inject it into Stoat Desktop'
+    : 'Enable to inject plugins directly into Stoat Desktop';
+  // Re-render to swap button labels
+  if (activeSection === 'plugins') {
+    if (activeFilter === 'new' && window.innerWidth <= 600) renderMobileRecent();
+    else renderPlugins();
+  }
+}
+
+// ── Inject via localStorage bridge ─────────────────────────────────────
+function injectInStoat(plugin) {
+  const requestId = Date.now().toString(36) + Math.random().toString(36).slice(2);
+  const request = { id: requestId, name: plugin.name, url: plugin.link };
+
+  // Write the request into localStorage (Stoat bridge plugin picks this up)
+  localStorage.setItem(BRIDGE_KEY, JSON.stringify(request));
+
+  // Poll for acknowledgement from the bridge plugin
+  const deadline = Date.now() + 2500;
+  const poll = setInterval(() => {
+    const ack = localStorage.getItem(BRIDGE_ACK_KEY);
+    if (ack === requestId) {
+      clearInterval(poll);
+      showToast(`Sent "${plugin.name}" to Stoat!`, 'rocket_launch', 'stoat-icon');
+      return;
+    }
+    if (Date.now() > deadline) {
+      clearInterval(poll);
+      localStorage.removeItem(BRIDGE_KEY);
+      // Fall back to clipboard
+      navigator.clipboard.writeText(plugin.link).then(() => {
+        showToast('Bridge not found — link copied!', 'content_copy');
+      }).catch(() => {
+        showToast('Bridge not found — open Stoat and retry', 'warning');
+      });
+    }
+  }, 100);
+}
+
+// ── Plugin action handler ───────────────────────────────────────────────
+function handlePluginAction(plugin) {
+  if (stoatEnabled) {
+    injectInStoat(plugin);
+  } else {
+    copyLink(plugin.link);
+  }
+}
+
+// ── Utils ───────────────────────────────────────────────────────────────
+function getIconForPlugin(name) {
+  const n = name.toLowerCase();
+  if (n.includes('theme') || n.includes('style') || n.includes('ui')) return 'palette';
+  if (n.includes('music') || n.includes('spotify') || n.includes('audio')) return 'music_note';
+  if (n.includes('translate') || n.includes('lang')) return 'translate';
+  if (n.includes('search')) return 'search';
+  if (n.includes('notif')) return 'notifications';
+  if (n.includes('gif') || n.includes('image') || n.includes('media')) return 'image';
+  if (n.includes('chat') || n.includes('msg')) return 'chat';
+  return 'extension';
+}
+
+function escHtml(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Nav helpers ─────────────────────────────────────────────────────────
+function clearNavActive() {
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.mobile-nav-item').forEach(el => el.classList.remove('active'));
+}
+
+function setSection(s) {
+  activeSection = s;
+  activeFilter = 'all';
+  mobileRecentFilter = 'all';
+  clearNavActive();
+  document.getElementById('nav-' + s)?.classList.add('active');
+  document.getElementById('mnav-' + s)?.classList.add('active');
+  // Show stoat row only for plugins
+  stoatRow.style.display = s === 'plugins' ? '' : 'none';
+  searchInput.placeholder = s === 'themes' ? 'Search themes or authors…' : 'Search plugins, authors, descriptions…';
+  searchInput.value = '';
+  if (s === 'themes') renderThemes();
+  else renderPlugins();
+}
+
+function setFilter(f) {
+  activeSection = 'plugins';
+  activeFilter = f;
+  clearNavActive();
+  document.getElementById('nav-' + f)?.classList.add('active');
+  document.getElementById('mnav-' + f)?.classList.add('active');
+  stoatRow.style.display = '';
+  searchInput.placeholder = 'Search plugins, authors, descriptions…';
+
+  if (f === 'new' && window.innerWidth <= 600) {
+    mobileRecentFilter = 'all';
+    searchInput.placeholder = 'Search plugins or themes, authors, descriptions…';
+    renderMobileRecent();
+  } else {
+    renderPlugins();
+  }
+}
+
+function setRecentThemes() {
+  activeSection = 'themes';
+  activeFilter = 'new';
+  clearNavActive();
+  document.getElementById('nav-themes-new')?.classList.add('active');
+  stoatRow.style.display = 'none';
+  searchInput.placeholder = 'Search themes or authors…';
+  searchInput.value = '';
+  renderThemes();
+}
+
+// ── Plugin card builder ─────────────────────────────────────────────────
+function buildPluginCard(p) {
+  const card = document.createElement('div');
+  card.className = 'plugin-card';
+
+  const actionBtnHtml = stoatEnabled
+    ? `<button class="btn-stoat action-btn">
+         <span class="material-symbols-outlined">rocket_launch</span>
+         Inject in Stoat
+       </button>`
+    : `<button class="btn-tonal action-btn">
+         <span class="material-symbols-outlined">content_copy</span>
+         Copy link
+       </button>`;
+
+  card.innerHTML = `
+    <div class="plugin-header">
+      <div class="plugin-icon">
+        <span class="material-symbols-outlined">${getIconForPlugin(p.name)}</span>
+      </div>
+      <div class="plugin-meta">
+        <div class="plugin-name" title="${escHtml(p.name)}">${escHtml(p.name)}</div>
+        <div class="plugin-author">by ${escHtml(p.author || 'Unknown')}</div>
+      </div>
+    </div>
+    ${p.description ? `<div class="plugin-desc">${escHtml(p.description)}</div>` : ''}
+    <div class="plugin-actions">
+      ${actionBtnHtml}
+    </div>
+  `;
+
+  card.querySelector('.action-btn').addEventListener('click', () => handlePluginAction(p));
+  return card;
+}
+
+// ── Render plugins ──────────────────────────────────────────────────────
+function renderPlugins() {
+  const query = searchInput.value.toLowerCase();
+  let pool = activeFilter === 'new'
+    ? allPlugins.slice(-4).reverse()
+    : allPlugins;
+
+  let filtered = pool.filter(p =>
+    (p.name + ' ' + (p.author || '') + ' ' + (p.description || '')).toLowerCase().includes(query)
+  );
+
+  countAll.textContent = allPlugins.length;
+  const mobCount = document.getElementById('mob-count-all');
+  if (mobCount) mobCount.textContent = allPlugins.length;
+  resultCount.textContent = filtered.length + ' plugin' + (filtered.length !== 1 ? 's' : '');
+
+  if (filtered.length === 0) {
+    content.innerHTML = `<div class="empty-state">
+      <span class="material-symbols-outlined">search_off</span>
+      <p>No plugins match your search.</p>
+    </div>`;
+    return;
+  }
+
+  const grid = document.createElement('div');
+  grid.className = 'plugin-grid';
+  filtered.forEach(p => grid.appendChild(buildPluginCard(p)));
+  content.innerHTML = '';
+  content.appendChild(grid);
+}
+
+// ── Render themes ───────────────────────────────────────────────────────
+function renderThemes() {
+  const query = searchInput.value.toLowerCase();
+  let pool = activeFilter === 'new'
+    ? allThemesBySource.map(s => s.themes.slice(-1)).flat()
+    : allThemes;
+
+  const filtered = pool.filter(t =>
+    (t.name + ' ' + (t.author || '')).toLowerCase().includes(query)
+  );
+
+  document.getElementById('count-themes').textContent = allThemes.length;
+  resultCount.textContent = filtered.length + ' theme' + (filtered.length !== 1 ? 's' : '');
+
+  if (allThemes.length === 0) {
+    content.innerHTML = `<div class="loading-state">
+      <span class="material-symbols-outlined spin">progress_activity</span>
+      <p>Fetching themes…</p>
+    </div>`;
+    return;
+  }
+
+  if (filtered.length === 0) {
+    content.innerHTML = `<div class="empty-state">
+      <span class="material-symbols-outlined">search_off</span>
+      <p>No themes match your search.</p>
+    </div>`;
+    return;
+  }
+
+  const grid = document.createElement('div');
+  grid.className = 'theme-grid';
+
+  filtered.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'theme-card';
+    const preview = t.preview
+      ? `<img class="theme-preview" src="${escHtml(t.preview)}" alt="${escHtml(t.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+      : '';
+    const placeholder = `<div class="theme-preview-placeholder" style="${t.preview ? 'display:none' : ''}"><span class="material-symbols-outlined">palette</span></div>`;
+
+    card.innerHTML = `
+      ${preview}${placeholder}
+      <div class="theme-info">
+        <div class="theme-info-top">
+          <div class="theme-meta">
+            <div class="theme-name" title="${escHtml(t.name)}">${escHtml(t.name)}</div>
+            <div class="theme-author">by ${escHtml(t.author || 'Unknown')}</div>
+          </div>
+        </div>
+        <button class="btn-tonal download-btn" style="width:100%;justify-content:center;">
+          <span class="material-symbols-outlined">download</span>
+          Download
+        </button>
+      </div>
+    `;
+
+    card.querySelector('.download-btn').addEventListener('click', () => {
+      const btn = card.querySelector('.download-btn');
+      btn.disabled = true;
+      btn.innerHTML = `<span class="material-symbols-outlined spin">progress_activity</span> Downloading…`;
+      fetch(t.download)
+        .then(r => r.blob())
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = t.name.replace(/\s+/g, '-').toLowerCase() + '.css';
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showToast('Downloaded ' + t.name);
+          btn.disabled = false;
+          btn.innerHTML = `<span class="material-symbols-outlined">download</span> Download`;
+        })
+        .catch(() => {
+          showToast('Download failed — try again');
+          btn.disabled = false;
+          btn.innerHTML = `<span class="material-symbols-outlined">download</span> Download`;
+        });
+    });
+
+    grid.appendChild(card);
+  });
+
+  content.innerHTML = '';
+  content.appendChild(grid);
+}
+
+// ── Mobile recent ───────────────────────────────────────────────────────
+let mobileRecentFilter = 'all';
+
+function renderMobileRecent() {
+  const query = searchInput.value.toLowerCase();
+
+  const recentPlugins = allPlugins.slice(-4).reverse().filter(p =>
+    (p.name + ' ' + (p.author || '') + ' ' + (p.description || '')).toLowerCase().includes(query)
+  );
+  const recentThemes = allThemesBySource.map(s => s.themes.slice(-1)).flat().filter(t =>
+    (t.name + ' ' + (t.author || '')).toLowerCase().includes(query)
+  );
+
+  const showPlugins = mobileRecentFilter === 'all' || mobileRecentFilter === 'plugins';
+  const showThemes  = mobileRecentFilter === 'all' || mobileRecentFilter === 'themes';
+  const total = (showPlugins ? recentPlugins.length : 0) + (showThemes ? recentThemes.length : 0);
+  resultCount.textContent = total + ' recent';
+
+  content.innerHTML = '';
+
+  const toggle = document.createElement('div');
+  toggle.style.cssText = 'display:flex;gap:8px;margin-bottom:16px;';
+  ['all', 'plugins', 'themes'].forEach(f => {
+    const btn = document.createElement('button');
+    btn.textContent = f.charAt(0).toUpperCase() + f.slice(1);
+    btn.style.cssText = `height:32px;padding:0 16px;border-radius:100px;border:1px solid var(--md-outline-variant);background:${mobileRecentFilter === f ? 'var(--md-secondary-container)' : 'transparent'};color:${mobileRecentFilter === f ? 'var(--md-on-primary-container)' : 'var(--md-on-surface-variant)'};font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;transition:background 0.15s;`;
+    btn.addEventListener('click', () => {
+      mobileRecentFilter = f;
+      if (f === 'plugins') searchInput.placeholder = 'Search plugins, authors, descriptions…';
+      else if (f === 'themes') searchInput.placeholder = 'Search themes or authors…';
+      else searchInput.placeholder = 'Search plugins or themes, authors, descriptions…';
+      renderMobileRecent();
+    });
+    toggle.appendChild(btn);
+  });
+  content.appendChild(toggle);
+
+  if (total === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.innerHTML = `<span class="material-symbols-outlined">search_off</span><p>No recent items match your search.</p>`;
+    content.appendChild(empty);
+    return;
+  }
+
+  if (showPlugins && recentPlugins.length > 0) {
+    const heading = document.createElement('div');
+    heading.style.cssText = 'font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--md-on-surface-variant);padding:0 0 8px;';
+    heading.textContent = 'Plugins';
+    content.appendChild(heading);
+    const grid = document.createElement('div');
+    grid.className = 'plugin-grid';
+    recentPlugins.forEach(p => grid.appendChild(buildPluginCard(p)));
+    content.appendChild(grid);
+  }
+
+  if (showThemes && recentThemes.length > 0) {
+    const heading = document.createElement('div');
+    heading.style.cssText = 'font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--md-on-surface-variant);padding:16px 0 8px;';
+    heading.textContent = 'Themes';
+    content.appendChild(heading);
+    const grid = document.createElement('div');
+    grid.className = 'theme-grid';
+    recentThemes.forEach(t => {
+      const card = document.createElement('div');
+      card.className = 'theme-card';
+      const preview = t.preview
+        ? `<img class="theme-preview" src="${escHtml(t.preview)}" alt="${escHtml(t.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+        : '';
+      const placeholder = `<div class="theme-preview-placeholder" style="${t.preview ? 'display:none' : ''}"><span class="material-symbols-outlined">palette</span></div>`;
+      card.innerHTML = `
+        ${preview}${placeholder}
+        <div class="theme-info">
+          <div class="theme-info-top">
+            <div class="theme-meta">
+              <div class="theme-name">${escHtml(t.name)}</div>
+              <div class="theme-author">by ${escHtml(t.author || 'Unknown')}</div>
+            </div>
+          </div>
+          <button class="btn-tonal download-btn" style="width:100%;justify-content:center;">
+            <span class="material-symbols-outlined">download</span>Download
+          </button>
+        </div>`;
+      card.querySelector('.download-btn').addEventListener('click', () => {
+        const btn = card.querySelector('.download-btn');
+        btn.disabled = true;
+        btn.innerHTML = `<span class="material-symbols-outlined spin">progress_activity</span> Downloading…`;
+        fetch(t.download).then(r => r.blob()).then(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = t.name.replace(/\s+/g, '-').toLowerCase() + '.css';
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showToast('Downloaded ' + t.name);
+          btn.disabled = false;
+          btn.innerHTML = `<span class="material-symbols-outlined">download</span> Download`;
+        }).catch(() => {
+          showToast('Download failed — try again');
+          btn.disabled = false;
+          btn.innerHTML = `<span class="material-symbols-outlined">download</span> Download`;
+        });
+      });
+      grid.appendChild(card);
+    });
+    content.appendChild(grid);
+  }
+}
+
+// ── Fetch ───────────────────────────────────────────────────────────────
+function refetchRepo() {
+  content.innerHTML = `<div class="loading-state">
+    <span class="material-symbols-outlined spin">progress_activity</span>
+    <p>${activeSection === 'themes' ? 'Fetching themes…' : 'Fetching plugins…'}</p>
+  </div>`;
+  resultCount.textContent = 'Loading…';
+
+  const icon = document.getElementById('refresh-icon');
+  icon.classList.add('spin');
+
+  fetch(OFFICIAL_REPO_URL)
+    .then(r => r.json())
+    .then(data => {
+      allPlugins = data.plugins || [];
+      if (activeSection === 'plugins') {
+        if (activeFilter === 'new' && window.innerWidth <= 600) renderMobileRecent();
+        else renderPlugins();
+      }
+    })
+    .catch(() => {
+      if (activeSection === 'plugins') {
+        content.innerHTML = `<div class="error-state">
+          <span class="material-symbols-outlined">cloud_off</span>
+          <p>Couldn't reach the plugin repo.<br>Check your connection and try again.</p>
+        </div>`;
+        resultCount.textContent = 'Error';
+      }
+    });
+
+  fetch(THEMES_REGISTRY_URL)
+    .then(r => r.json())
+    .then(async registry => {
+      const sources = registry.sources || [];
+      const results = await Promise.allSettled(
+        sources.map(s => fetch(s.url).then(r => r.json()))
+      );
+      allThemes = [];
+      allThemesBySource = [];
+      results.forEach(r => {
+        if (r.status === 'fulfilled') {
+          const themes = r.value.themes || [];
+          allThemes.push(...themes);
+          allThemesBySource.push({ themes });
+        }
+      });
+      document.getElementById('count-themes').textContent = allThemes.length;
+      if (activeSection === 'themes') renderThemes();
+      icon.classList.remove('spin');
+    })
+    .catch(() => {
+      icon.classList.remove('spin');
+      if (activeSection === 'themes') {
+        content.innerHTML = `<div class="error-state">
+          <span class="material-symbols-outlined">cloud_off</span>
+          <p>Couldn't reach the themes registry.<br>Check your connection and try again.</p>
+        </div>`;
+        resultCount.textContent = 'Error';
+      }
+    });
+}
+
+searchInput.addEventListener('input', () => {
+  if (activeSection === 'themes') renderThemes();
+  else if (activeFilter === 'new' && window.innerWidth <= 600) renderMobileRecent();
+  else renderPlugins();
+});
+
+refetchRepo();
+</script>
+</body>
+</html>
