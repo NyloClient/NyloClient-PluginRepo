@@ -125,6 +125,12 @@
       "author": "AvaLilac",
       "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/ThemesCSSPlus.js",
       "description": "Exactly Like MonacoCSS But for the Themes Editor instead of QuickCSS. ThemesCSSPlus Enhances Avia’s Themes with the Monaco editor, delivering real syntax highlighting, instant live updates, and a smoother editing experience."
+    },
+    {
+      "name": "NoBlockedMessages",
+      "author": "AvaLilac",
+      "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/NoBlockedMessages.js",
+      "description": "Completely Hides blocked messages. the messages that says '1 blocked message' hides them from even showing up"
     }
   ]
 }
