@@ -131,6 +131,12 @@
       "author": "AvaLilac",
       "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/NoBlockedMessages.js",
       "description": "Completely Hides blocked messages. the messages that says '1 blocked message' hides them from even showing up"
+    },
+    {
+      "name": "NoSmoothScroll",
+      "author": "AvaLilac",
+      "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/NoSmoothScroll.js",
+      "description": "Completely hides the messages from showing"
     }
   ]
 }
