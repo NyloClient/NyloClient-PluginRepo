@@ -137,6 +137,36 @@
       "author": "AvaLilac",
       "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/NoSmoothScroll.js",
       "description": "Completely hides the messages from showing"
+    },
+    {
+      "name": "ChunkyMembers",
+      "author": "0simp",
+      "link": "https://raw.githubusercontent.com/0simp/AviaPlugins/refs/heads/main/ChunkyMembers.js",
+      "description": "Makes the member and pinned message lists cover the chat entirely. I recommend combining it with the following css found inside the AviaClient Server"
+    },
+    {
+      "name": "GifFix",
+      "author": "0simp",
+      "link": "https://raw.githubusercontent.com/0simp/AviaPlugins/refs/heads/main/GifFix.js",
+      "description": "Fixes gifs and animated emojis not animating when they should"
+    },
+    {
+      "name": "StoatDupeFix",
+      "author": "AvaLilac",
+      "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/stoatDupeFix.js",
+      "description": "tries its best to fix the duped embeds/images glitch stoat seems to be having Not 100% but it tries its best"
+    },
+    {
+      "name": "HideImageLinks",
+      "author": "0simp",
+      "link": "https://raw.githubusercontent.com/0simp/AviaPlugins/refs/heads/main/HideImageLinks.js",
+      "description": "Hides image links if they're the only content in the message"
+    },
+    {
+      "name": "NotificationPings",
+      "author": "AvaLilac",
+      "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/NotificationPings.js",
+      "description": "Adds the ability to be pinged whenever you are either dmed or mentioned"
     }
   ]
 }
