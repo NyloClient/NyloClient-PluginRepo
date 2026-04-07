@@ -7,12 +7,6 @@
       "description": " Auto-capitalizes sentences while you type."
     },
     {
-      "name": "MonacoCSS",
-      "author": "AvaLilac",
-      "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/QuickCSSPlus.js",
-      "description": "Enhances Avia’s QuickCSS with the Monaco editor, delivering real syntax highlighting, instant live updates, and a smoother editing experience."
-    },
-    {
       "name": "ForceApparence",
       "author": "AvaLilac",
       "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/ForceApparence.js",
@@ -121,12 +115,6 @@
       "description": "Get Full access to the browsers devtools console inside AviaClientDesktop \"works on web\""
     },
     {
-      "name": "ThemesCSSPlus",
-      "author": "AvaLilac",
-      "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/ThemesCSSPlus.js",
-      "description": "Exactly Like MonacoCSS But for the Themes Editor instead of QuickCSS. ThemesCSSPlus Enhances Avia’s Themes with the Monaco editor, delivering real syntax highlighting, instant live updates, and a smoother editing experience."
-    },
-    {
       "name": "NoBlockedMessages",
       "author": "AvaLilac",
       "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/NoBlockedMessages.js",
@@ -167,6 +155,18 @@
       "author": "AvaLilac",
       "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/NotificationPings.js",
       "description": "Adds the ability to be pinged whenever you are either dmed or mentioned"
+    },
+    {
+      "name": "TimezoneV2",
+      "author": "AvaLilac",
+      "link": "https://codeberg.org/AvaLilac/Ava-s-AviaClient-Plugins/raw/branch/main/timezonesV2",
+      "description": "Now set custom time zones! V2 Now including PerUser Time zones.  You can also disable Global Time zone and just have PerUser"
+    },
+    {
+      "name": "CharacterCounter",
+      "author": "AvaLilac",
+      "link": "https://raw.githubusercontent.com/AvaLilac/Ava-s-AviaClient-Plugins/refs/heads/main/CharacterCounter.js",
+      "description": "Add a counter to your Textbox to display how many letters till you hit stoats limit inside channels"
     }
   ]
 }
