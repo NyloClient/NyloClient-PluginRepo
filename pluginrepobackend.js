@@ -235,7 +235,7 @@
       "name": "Whisper",
       "author": "AvaLilac#7432",
       "link": "https://codeberg.org/AvaLilac/Ava-s-AviaClient-Plugins/raw/branch/main/Whisper.js",
-      "description": "A Recreation of PR https://github.com/stoatchat/for-web/pull/1025",
+      "description": "Moves call button from the giant banner into the top toolbar within DMs",
       "icon": "phone"
     }
   ]
