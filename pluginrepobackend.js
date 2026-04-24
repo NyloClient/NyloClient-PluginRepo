@@ -230,6 +230,13 @@
       "link": "https://stoatservers.com/plugins/stoatservers-discovery.avia.js",
       "description": "Includes a new button under the Discovery button that lets you navigate to stoatservers.com and join servers. Adjusted to make it work with the limitations of the userscript. (Some degraded UX due to not having access to stt.gg, but all is functional)",
       "icon": "cloud"
+    },
+    {
+      "name": "Whisper",
+      "author": "AvaLilac#7432",
+      "link": "https://codeberg.org/AvaLilac/Ava-s-AviaClient-Plugins/raw/branch/main/Whisper.js",
+      "description": "A Recreation of PR https://github.com/stoatchat/for-web/pull/1025",
+      "icon": "phone"
     }
   ]
 }
