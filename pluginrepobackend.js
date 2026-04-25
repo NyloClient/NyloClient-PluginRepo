@@ -237,6 +237,13 @@
       "link": "https://codeberg.org/AvaLilac/Ava-s-AviaClient-Plugins/raw/branch/main/Whisper.js",
       "description": "Moves call button from the giant banner into the top toolbar within DMs",
       "icon": "phone"
+    },
+    {
+      "name": "File Syntaxer",
+      "author": "Amelia#2716",
+      "link": "https://codeberg.org/api/v1/repos/Amelinyaa/aviaStuff/raw/plugins/File_Syntaxer.js",
+      "description": "Adds syntax highlighting to embedded files",
+      "icon": "code"
     }
   ]
 }
